@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansJP = Noto_Sans_JP({
@@ -10,7 +11,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "ゲンバ・レシピ | 建設現場のAI活用レシピ集",
+  title: "現場AIレシピ | 建設現場のAI活用レシピ集",
   description: "建設現場の『困った』をAIで即解決。コピペで使える時短レシピ集。",
 };
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
+        <Header />
         {children}
       </body>
     </html>

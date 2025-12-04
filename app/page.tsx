@@ -26,7 +26,7 @@ export default function Home() {
       <section className="bg-white border-b py-20 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
-            ゲンバ・レシピ
+            現場AIレシピ
             <Hammer className="inline-block ml-3 h-10 w-10 text-primary mb-2" />
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
