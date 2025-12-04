@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { getSortedPostsData } from "@/lib/posts";
 import { Hammer } from "lucide-react";
-import RecipeList from "@/components/RecipeList";
+import RecipeTabs from "@/components/RecipeTabs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -49,7 +49,7 @@ export default function Home() {
 
       {/* Recipe List with Filter */}
       <Suspense fallback={<div className="text-center py-20">Loading...</div>}>
-        <RecipeList posts={allPostsData} />
+        <RecipeTabs posts={allPostsData} />
       </Suspense>
     </main>
   );
