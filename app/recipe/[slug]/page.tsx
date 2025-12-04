@@ -53,26 +53,33 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
                 <div className="p-8 md:p-12 prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-pre:bg-gray-900 prose-pre:p-0 prose-pre:rounded-xl">
                     <ReactMarkdown
                         components={{
-                            code({ node, inline, className, children, ...props }: any) {
-                                const match = /language-(\w+)/.exec(className || '');
-                                const codeText = String(children).replace(/\n$/, '');
+                            pre: ({ children, ...props }) => {
+                                // Extract code text from the code element (children)
+                                // children is typically a <code> element with the text as its child
+                                const codeElement = children as React.ReactElement;
+                                const codeText = (codeElement?.props as any)?.children || '';
 
-                                if (!inline) {
-                                    return (
-                                        <div className="relative group my-6">
-                                            <div className="absolute right-4 top-4 z-10">
-                                                <CopyButton text={codeText} />
-                                            </div>
-                                            <pre className={`${className} p-6 pt-16 bg-gray-900 rounded-xl overflow-x-auto text-gray-100`}>
-                                                <code className={className} {...props}>
-                                                    {children}
-                                                </code>
-                                            </pre>
+                                return (
+                                    <div className="relative group my-6">
+                                        <div className="absolute right-4 top-4 z-10">
+                                            <CopyButton text={String(codeText).replace(/\n$/, '')} />
                                         </div>
+                                        <pre {...props} className="p-6 pt-16 bg-gray-900 rounded-xl overflow-x-auto text-gray-100">
+                                            {children}
+                                        </pre>
+                                    </div>
+                                );
+                            },
+                            code({ node, inline, className, children, ...props }: any) {
+                                if (inline) {
+                                    return (
+                                        <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                                            {children}
+                                        </code>
                                     );
                                 }
                                 return (
-                                    <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                                    <code className={className} {...props}>
                                         {children}
                                     </code>
                                 );
