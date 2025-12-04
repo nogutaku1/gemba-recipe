@@ -11,6 +11,7 @@ export interface PostData {
   description: string;
   tags: string[];
   occupation?: string;
+  tool?: string;
   content: string;
 }
 
@@ -31,7 +32,7 @@ export function getSortedPostsData(): Omit<PostData, 'content'>[] {
     // Combine the data with the id
     return {
       slug,
-      ...(matterResult.data as { title: string; date: string; description: string; tags: string[]; occupation?: string }),
+      ...(matterResult.data as { title: string; date: string; description: string; tags: string[]; occupation?: string; tool?: string }),
     };
   });
   // Sort posts by date
@@ -65,6 +66,6 @@ export async function getPostData(slug: string): Promise<PostData> {
   return {
     slug,
     content: matterResult.content,
-    ...(matterResult.data as { title: string; date: string; description: string; tags: string[]; occupation?: string }),
+    ...(matterResult.data as { title: string; date: string; description: string; tags: string[]; occupation?: string; tool?: string }),
   };
 }

@@ -1,69 +1,75 @@
-import Link from 'next/link';
-import { getSortedPostsData } from '@/lib/posts';
-import { Calendar, ArrowRight } from 'lucide-react';
-import { getGradientClass } from '@/lib/utils';
+// app/page.tsx
+import Link from "next/link";
+// 記事データ取得関数（※ご自身の環境に合わせてパスを調整してください）
+import { getSortedPostsData } from "@/lib/posts";
+// shadcn/uiのコンポーネントをインポート
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+// グラデーション関数をインポート
+import { getGradientClass } from "@/lib/utils";
+// アイコン（lucide-reactはNext.jsに標準で入っています）
+import { Hammer, ChevronRight } from "lucide-react";
 
 export default function Home() {
   const allPostsData = getSortedPostsData();
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-blue-900 text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+    <main className="min-h-screen bg-gray-50/50">
+      {/* ヒーローセクション */}
+      <section className="bg-white border-b py-20 px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
             ゲンバ・レシピ
-            <span className="block text-lg md:text-xl font-normal mt-2 text-blue-200">Gemba Recipe</span>
+            <Hammer className="inline-block ml-3 h-10 w-10 text-primary mb-2" />
           </h1>
-          <p className="text-xl md:text-2xl mb-8 leading-relaxed">
-            建設現場の『困った』をAIで即解決。<br />
-            コピペで使える時短レシピ集
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            建設現場の「困った」をAIで即解決。<br className="md:hidden" />
+            コピペで使える時短レシピ集。
           </p>
         </div>
       </section>
 
-      {/* Recipe List Section */}
-      <section className="max-w-5xl mx-auto py-16 px-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-8 border-l-4 border-blue-600 pl-4">
-          新着レシピ
-        </h2>
+      {/* 記事一覧セクション */}
+      <section className="max-w-5xl mx-auto py-12 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allPostsData.map(({ slug, title, description, occupation, tool }) => (
+            <Link href={`/recipe/${slug}`} key={slug} className="block group">
+              <Card className="h-full overflow-hidden border-2 border-transparent group-hover:border-primary/20 transition-all duration-300 shadow-sm hover:shadow-md">
+                {/* ここが自動生成サムネイル画像エリア */}
+                <div className={`h-32 w-full ${getGradientClass(occupation || '')} relative flex items-center justify-center`}>
+                  {/* 職種名を白文字で中央に配置 */}
+                  <span className="text-white font-bold text-lg drop-shadow-md">
+                    {occupation}
+                  </span>
+                </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allPostsData.map(({ slug, title, date, description, tags, occupation }) => (
-            <Link href={`/ recipe / ${slug} `} key={slug} className="group">
-              <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative">
-                {occupation && (
-                  <div className={`absolute top - 0 left - 0 w - full h - 1 ${getGradientClass(occupation)} `} />
-                )}
-                <div className="p-6 flex-1 pt-8">
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                    <Calendar className="w-4 h-4" />
-                    <time dateTime={date}>{date}</time>
+                <CardHeader>
+                  {/* ツール名をバッジのように表示 */}
+                  <div className="text-sm text-primary font-semibold mb-2">
+                    {tool}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <CardTitle className="text-xl leading-snug group-hover:text-primary transition-colors">
                     {title}
-                  </h3>
-                  <p className="text-gray-600 text-sm line-clamp-3 mb-4">
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="line-clamp-3">
                     {description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {occupation && (
-                      <span className={`px - 2 py - 1 text - white text - xs rounded - full ${getGradientClass(occupation)} `}>
-                        {occupation}
-                      </span>
-                    )}
-                    {tags.filter(t => t !== occupation).map(tag => (
-                      <span key={tag} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-blue-600 text-sm font-medium">
-                  レシピを見る
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </article>
+                  </CardDescription>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="ghost" className="w-full group-hover:bg-primary/10 group-hover:text-primary">
+                    レシピを見る <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardFooter>
+              </Card>
             </Link>
           ))}
         </div>
