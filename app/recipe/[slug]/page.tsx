@@ -14,9 +14,23 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const postData = await getPostData(slug);
+
     return {
-        title: `${postData.title} | ゲンバ・レシピ`,
+        title: `${postData.title} | 現場AIレシピ`,
         description: postData.description,
+        openGraph: {
+            title: `${postData.title} | 現場AIレシピ`,
+            description: postData.description,
+            type: 'article',
+            images: [
+                {
+                    url: '/logo.png', // デフォルト画像。記事ごとの画像があれば postData.image などに変更
+                    width: 1200,
+                    height: 630,
+                    alt: postData.title,
+                },
+            ],
+        },
     };
 }
 
@@ -28,8 +42,53 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
     const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
     const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
+    // 構造化データ (JSON-LD)
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: postData.title,
+        description: postData.description,
+        datePublished: postData.date, // 必要に応じてISO形式に変換推奨
+        author: {
+            '@type': 'Person',
+            name: '現場AIレシピ編集部', // または postData.author
+        },
+        image: '/logo.png', // 記事画像があればそれを設定
+    };
+
     return (
         <main className="min-h-screen bg-gray-50 py-12 px-4">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+
+            {/* Breadcrumbs */}
+            <nav className="max-w-3xl mx-auto mb-6 text-sm text-gray-500" aria-label="Breadcrumb">
+                <ol className="list-none p-0 inline-flex">
+                    <li className="flex items-center">
+                        <Link href="/" className="hover:text-blue-600 transition-colors">TOP</Link>
+                        <span className="mx-2">/</span>
+                    </li>
+                    {postData.occupation && (
+                        <li className="flex items-center">
+                            <Link
+                                href={`/?tag=${encodeURIComponent(postData.occupation)}`}
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                {postData.occupation}
+                            </Link>
+                            <span className="mx-2">/</span>
+                        </li>
+                    )}
+                    <li className="flex items-center">
+                        <span className="text-gray-900 font-medium truncate max-w-[200px] md:max-w-md" aria-current="page">
+                            {postData.title}
+                        </span>
+                    </li>
+                </ol>
+            </nav>
+
             <article className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 {/* Header */}
                 <header className={`text-white p-8 md:p-12 ${postData.occupation ? getGradientClass(postData.occupation) : 'bg-blue-900'}`}>
@@ -51,7 +110,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
                 </header>
 
                 {/* Content */}
-                <div className="p-8 md:p-12 prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-pre:bg-gray-900 prose-pre:p-0 prose-pre:rounded-xl">
+                <div className="p-8 md:p-12 prose prose-lg max-w-none prose-headings:text-gray-800 prose-p:text-gray-600 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-pre:bg-gray-900 prose-pre:p-0 prose-pre:rounded-xl prose-img:rounded-xl">
                     <ReactMarkdown
                         components={{
                             pre: ({ children, ...props }) => {
@@ -61,7 +120,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
                                 const codeText = (codeElement?.props as any)?.children || '';
 
                                 return (
-                                    <div className="relative group my-6">
+                                    <div className="relative group my-6 not-prose">
                                         <div className="absolute right-4 top-4 z-10">
                                             <CopyButton text={String(codeText).replace(/\n$/, '')} />
                                         </div>
@@ -74,7 +133,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
                             code({ node, inline, className, children, ...props }: any) {
                                 if (inline) {
                                     return (
-                                        <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                                        <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono before:content-[''] after:content-['']" {...props}>
                                             {children}
                                         </code>
                                     );
