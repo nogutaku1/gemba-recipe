@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Calendar, Tag } from 'lucide-react';
 import CopyButton from '@/components/CopyButton';
 import { Metadata } from 'next';
+import { getGradientClass } from '@/lib/utils';
 
 export async function generateStaticParams() {
     const paths = getAllPostSlugs();
@@ -31,10 +32,10 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
         <main className="min-h-screen bg-gray-50 py-12 px-4">
             <article className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 {/* Header */}
-                <header className="bg-blue-900 text-white p-8 md:p-12">
+                <header className={`text-white p-8 md:p-12 ${postData.occupation ? getGradientClass(postData.occupation) : 'bg-blue-900'}`}>
                     <div className="flex flex-wrap gap-2 mb-6">
                         {postData.tags.map(tag => (
-                            <span key={tag} className="flex items-center gap-1 px-3 py-1 bg-blue-800/50 text-blue-100 text-sm rounded-full backdrop-blur-sm">
+                            <span key={tag} className="flex items-center gap-1 px-3 py-1 bg-white/20 text-white text-sm rounded-full backdrop-blur-sm">
                                 <Tag className="w-3 h-3" />
                                 {tag}
                             </span>

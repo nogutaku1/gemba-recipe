@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getSortedPostsData } from '@/lib/posts';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { getGradientClass } from '@/lib/utils';
 
 export default function Home() {
   const allPostsData = getSortedPostsData();
@@ -28,10 +29,13 @@ export default function Home() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allPostsData.map(({ slug, title, date, description, tags }) => (
-            <Link href={`/recipe/${slug}`} key={slug} className="group">
-              <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col">
-                <div className="p-6 flex-1">
+          {allPostsData.map(({ slug, title, date, description, tags, occupation }) => (
+            <Link href={`/ recipe / ${slug} `} key={slug} className="group">
+              <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative">
+                {occupation && (
+                  <div className={`absolute top - 0 left - 0 w - full h - 1 ${getGradientClass(occupation)} `} />
+                )}
+                <div className="p-6 flex-1 pt-8">
                   <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
                     <Calendar className="w-4 h-4" />
                     <time dateTime={date}>{date}</time>
@@ -43,7 +47,12 @@ export default function Home() {
                     {description}
                   </p>
                   <div className="flex flex-wrap gap-2 mt-auto">
-                    {tags.map(tag => (
+                    {occupation && (
+                      <span className={`px - 2 py - 1 text - white text - xs rounded - full ${getGradientClass(occupation)} `}>
+                        {occupation}
+                      </span>
+                    )}
+                    {tags.filter(t => t !== occupation).map(tag => (
                       <span key={tag} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
                         #{tag}
                       </span>
