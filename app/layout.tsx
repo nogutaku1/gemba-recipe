@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansJP = Noto_Sans_JP({
@@ -22,9 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
+      <body className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased bg-gray-50 text-gray-900 flex flex-col min-h-screen`}>
         <Header />
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

@@ -26,12 +26,12 @@ export default function Home() {
       <section className="bg-white border-b py-20 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
-            現場AIレシピ
+            コピペで生産性200%増のレシピ集
             <Hammer className="inline-block ml-3 h-10 w-10 text-primary mb-2" />
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             建設現場の「困った」をAIで即解決。<br className="md:hidden" />
-            コピペで使える時短レシピ集。
+            ChatGPTやGeminiでお試しください。
           </p>
         </div>
       </section>

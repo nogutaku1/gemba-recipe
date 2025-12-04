@@ -16,14 +16,6 @@ export default function Header() {
                     </div>
                     現場AIレシピ
                 </Link>
-                <nav className="ml-auto flex items-center gap-4">
-                    <Link href="/" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-                        トップ
-                    </Link>
-                    <a href="https://github.com/nogutaku1/gemba-recipe" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-                        GitHub
-                    </a>
-                </nav>
             </div>
         </header>
     );
