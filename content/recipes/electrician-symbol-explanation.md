@@ -1,6 +1,6 @@
 ---
 title: "新人教育用：図面記号の解説資料作成"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "新人が図面記号を覚えてくれない…。写真を撮ってChatGPTに解説させれば、即席の教育資料の出来上がり。"
 tags: ["電気工事士", "ChatGPT Plus (Vision)"]
 occupation: "電気工事士"

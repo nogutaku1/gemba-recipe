@@ -1,6 +1,6 @@
 ---
 title: "共通：ChatGPTへの「指示の出し方」テンプレート"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "そもそもChatGPTにどう頼めばいいかわからない人へ。どんな業務にも使える万能プロンプトの型。"
 tags: ["共通", "ChatGPT"]
 occupation: "共通"

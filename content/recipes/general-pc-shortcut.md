@@ -1,6 +1,6 @@
 ---
 title: "共通：現場監督のための爆速PCショートカット集"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "Ctrl+C/Vだけじゃない。Excelやブラウザ操作を劇的に速くする、覚えておくべきショートカットキー。"
 tags: ["共通", "ChatGPT"]
 occupation: "共通"

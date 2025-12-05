@@ -1,6 +1,6 @@
 ---
 title: "共通：Slack/Chatworkのチャンネル構成案"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "チャットツール導入！でもどういう部屋割りにすればいい？現場別、部署別などのチャンネル構成例。"
 tags: ["共通", "ChatGPT"]
 occupation: "共通"

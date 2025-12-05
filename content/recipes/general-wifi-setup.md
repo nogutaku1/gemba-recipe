@@ -1,6 +1,6 @@
 ---
 title: "共通：現場事務所のWi-Fi設定マニュアル"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "仮設事務所にWi-Fiを設置。接続方法やパスワードを職人さんに共有するための貼り紙を作成。"
 tags: ["共通", "ChatGPT"]
 occupation: "共通"

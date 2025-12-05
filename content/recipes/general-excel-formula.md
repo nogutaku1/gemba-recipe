@@ -1,6 +1,6 @@
 ---
 title: "共通：Excelで請求書計算式のエラー修正"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "「合計が合わない！」「#VALUE!って何？」ExcelのトラブルをAIに相談して即解決。"
 tags: ["共通", "ChatGPT"]
 occupation: "共通"

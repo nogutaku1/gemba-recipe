@@ -1,6 +1,6 @@
 ---
 title: "共通：最強の空調服・冷却グッズ選び"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "毎年進化する熱中症対策グッズ。「どれが一番涼しい？」最新トレンドや選び方をAIにリサーチさせる。"
 tags: ["共通", "ChatGPT (Web Browsing)"]
 occupation: "共通"

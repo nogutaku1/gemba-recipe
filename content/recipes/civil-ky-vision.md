@@ -1,6 +1,6 @@
 ---
 title: "土木作業員：写真でKY（危険予知）ネタ出し"
-date: "2025-12-04"
+date: "2025-12-05"
 description: "現場の写真を撮って「ここ危ないよ」とAIに指摘してもらう。マンネリ化したKY活動に新しい視点を。"
 tags: ["土木作業員", "ChatGPT Plus (Vision)"]
 occupation: "土木作業員"
