@@ -14,6 +14,9 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: "現場AIレシピ | 建設現場のAI活用レシピ集",
   description: "建設現場の『困った』をAIで即解決。コピペで使える時短レシピ集。",
+  verification: {
+    google: "U24uU6-OmTIVBqq3jhbDSG5rA9Acicpvm4Vpq25jIpw",
+  },
 };
 
 import { GoogleAnalytics } from "@next/third-parties/google";
